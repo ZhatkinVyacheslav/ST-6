@@ -1,4 +1,5 @@
-package org.example;// Реализация игры "Крестики-нолики" (3x3)
+package org.example;
+// Реализация игры "Крестики-нолики" (3x3)
 // Минимаксный алгоритм
 
 import java.awt.*;
@@ -228,7 +229,6 @@ class TicTacToeCell extends JButton {
     public int getNum() {
         return num;
     }
-
 }
 
 class Utility {
@@ -254,14 +254,12 @@ class Utility {
 }
 
 class TicTacToePanel extends JPanel implements ActionListener {
-
    Game game;
 
    private void createCell(int num,int x,int y) {
        cells[num]=new TicTacToeCell(num,x,y);
        cells[num].addActionListener(this);
        add(cells[num]);
-
    }
 
    TicTacToeCell[] cells = new TicTacToeCell[9];
@@ -285,7 +283,6 @@ class TicTacToePanel extends JPanel implements ActionListener {
       game.player2.move = -1;
       //System.out.println(game.cplayer.symbol);
       //System.out.println(((TicTacToeCell)(ae.getSource())).getNum());
-
 
       int i=0;
       for(TicTacToeCell jb: cells) {
@@ -312,7 +309,6 @@ class TicTacToePanel extends JPanel implements ActionListener {
 
       game.state=game.checkState(game.board);
 
-
       if(game.state==State.XWIN) {
         JOptionPane.showMessageDialog(null,"Выиграли крестики","Результат", JOptionPane.WARNING_MESSAGE);
         System.exit(0);
@@ -326,10 +322,6 @@ class TicTacToePanel extends JPanel implements ActionListener {
         JOptionPane.showMessageDialog(null,"Ничья","Результат", JOptionPane.WARNING_MESSAGE);
         System.exit(0);
       } 
-
-
-
-
    }
 }
 
