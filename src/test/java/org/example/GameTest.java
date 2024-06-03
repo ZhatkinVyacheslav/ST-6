@@ -117,4 +117,101 @@ public class GameTest
         assertFalse(cell.isEnabled());
     }
 
+    @Test
+    public void testSymbol() {
+        Player player = new Player();
+        player.symbol = 'X';
+        assertEquals('X', player.symbol);
+
+        player.symbol = 'O';
+        assertEquals('O', player.symbol);
+    }
+
+    @Test
+    public void testValues() {
+        Player player = new Player();
+        assertFalse(player.selected);
+        assertFalse(player.win);
+        assertEquals(0, player.move);
+
+        player.selected = true;
+        player.win = true;
+        player.move = 5;
+        assertTrue(player.selected);
+        assertTrue(player.win);
+        assertEquals(5, player.move);
+    }
+
+    @Test
+    public void testDefaultConstructor() {
+        Player player = new Player();
+        assertEquals('\u0000', player.symbol);
+        assertFalse(player.selected);
+        assertFalse(player.win);
+        assertEquals(0, player.move);
+    }
+
+    @Test
+    public void testSettersAndGetters() {
+        Player player = new Player();
+        player.symbol = 'O';
+        player.move = 3;
+        player.selected = true;
+        player.win = true;
+
+        assertEquals('O', player.symbol);
+        assertEquals(3, player.move);
+        assertTrue(player.selected);
+        assertTrue(player.win);
+    }
+
+    @Test
+    public void testEvaluateSecondPlayerWin() {
+        Game game = new Game();
+        game.symbol = 'O';
+        for (int i = 0; i < 3; i++) {
+            game.board[i] = game.symbol;
+        }
+
+        int result = game.evaluatePosition(game.board, game.player2);
+        assertEquals(Game.INF, result);
+    }
+
+    @Test
+    public void testState() {
+        Game game = new Game();
+        assertEquals(State.PLAYING, game.state);
+        assertEquals('X', game.player1.symbol);
+        assertEquals('O', game.player2.symbol);
+        assertEquals(' ', game.board[0]);
+    }
+
+    @Test
+    public void testEvaluateFirstPlayerWin() {
+        Game game = new Game();
+        game.symbol = 'X';
+        for (int i = 0; i < 3; i++) {
+            game.board[i] = game.symbol;
+        }
+
+        int result = game.evaluatePosition(game.board, game.player1);
+        assertEquals(Game.INF, result);
+    }
+
+    @Test
+    public void testEvaluateDraw() {
+        Game game = new Game();
+        game.board[0] = 'X';
+        game.board[1] = 'O';
+        game.board[2] = 'X';
+        game.board[3] = 'O';
+        game.board[4] = 'X';
+        game.board[5] = 'O';
+        game.board[6] = 'O';
+        game.board[7] = 'X';
+        game.board[8] = 'O';
+
+        int result = game.evaluatePosition(game.board, game.player1);
+        assertEquals(0, result);
+    }
 }
